@@ -117,8 +117,8 @@ public class SinglyLinkedList<E extends Comparable<E>> {
 
         int total = this.size / 2;
         for (int i = 0; i < total; i++) {
-            Node<E> min = sortedList.getFirst();
-            Node<E> max = sortedList.getLast();
+            Node<E> min = sortedList.get(0);
+            Node<E> max = sortedList.get(sortedList.size() - 1);
 
             int minOldIdx = emulatedList.indexOf(min);
             int maxOldIdx = emulatedList.indexOf(max);
@@ -126,16 +126,16 @@ public class SinglyLinkedList<E extends Comparable<E>> {
             emulatedList.set(minOldIdx, max);
             emulatedList.set(maxOldIdx, min);
 
-            sortedList.removeFirst();
-            sortedList.removeLast();
+            sortedList.remove(0);
+            sortedList.remove(sortedList.size() - 1);
         }
 
         for (int i = 0; i < this.size - 1; i++) {
             emulatedList.get(i).setNext(emulatedList.get(i + 1));
         }
 
-        this.head = emulatedList.getFirst();
-        this.tail = emulatedList.getLast();
+        this.head = emulatedList.get(0);
+        this.tail = emulatedList.get(emulatedList.size() - 1);
         emulatedList.getLast().setNext(null);
     }
 }
