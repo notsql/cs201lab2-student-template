@@ -136,6 +136,6 @@ public class SinglyLinkedList<E extends Comparable<E>> {
 
         this.head = emulatedList.get(0);
         this.tail = emulatedList.get(emulatedList.size() - 1);
-        emulatedList.getLast().setNext(null);
+        this.tail.setNext(null);
     }
 }
