@@ -105,29 +105,26 @@ public class SinglyLinkedList<E extends Comparable<E>> {
     public void swap() {
         List<Node<E>> sortedList = new ArrayList<>();
         List<Node<E>> emulatedList = new ArrayList<>();
+        Map<Node<E>, Integer> position = new HashMap<>();
         Node<E> current = head;
 
+        int idx = 0;
         while (current != null) {
             sortedList.add(current);
             emulatedList.add(current);
+            position.put(current, idx++);
             current = current.getNext();
         }
 
         sortedList.sort((v1, v2) -> v1.getElement().compareTo(v2.getElement()));
 
-        int total = this.size / 2;
-        for (int i = 0; i < total; i++) {
-            Node<E> min = sortedList.get(0);
-            Node<E> max = sortedList.get(sortedList.size() - 1);
+        int n = this.size / 2;
+        for (int i = 0; i < n; i++) {
+            Node<E> min = sortedList.get(i);
+            Node<E> max = sortedList.get(this.size - i - 1);
 
-            int minOldIdx = emulatedList.indexOf(min);
-            int maxOldIdx = emulatedList.indexOf(max);
-
-            emulatedList.set(minOldIdx, max);
-            emulatedList.set(maxOldIdx, min);
-
-            sortedList.remove(0);
-            sortedList.remove(sortedList.size() - 1);
+            emulatedList.set(position.get(min), max);
+            emulatedList.set(position.get(max), min);
         }
 
         for (int i = 0; i < this.size - 1; i++) {
